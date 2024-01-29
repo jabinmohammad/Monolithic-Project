@@ -1,30 +1,35 @@
 pipeline {
-    agent any
+    agent any 
+
+    environment {
+        AWS_ACCESS_KEY_ID     = credentials('accesskey')
+        AWS_SECRET_ACCESS_KEY = credentials('secretkey')
+    }
     
     stages {
         stage('checkout') {
             steps {
-                sh 'mvn compile'
+                git 'https://github.com/devopsbyraham/terraform-project.git'
             }
         }
-        stage('build') {
+        stage('init') {
             steps {
-                sh 'mvn compile'
+                sh 'terraform init'
             }
         }
-        stage('test') {
+        stage('validate') {
             steps {
-                sh 'mvn test'
+                sh 'terraform validate'                
             }
         }
-        stage('Artifact') {
+        stage('plan') {
             steps {
-                sh 'mvn clean package'
+                sh 'terraform plan'
             }
         }
-        stage('Deploy') {
+        stage('action') {
             steps {
-                ansiblePlaybook credentialsId: 'f105faae-40d8-4d7d-a160-3ed45305573a', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: '/etc/ansible/playbook.yml', vaultTmpPath: ''
+                sh 'terraform $action --auto-approve'
             }
         }
     }
