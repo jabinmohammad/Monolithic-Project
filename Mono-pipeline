@@ -2,17 +2,17 @@ pipeline {
     agent any
     
     stages {
-        stage('checkout') {
+        stage('Checkout') {
             steps {
-                git branch: 'release', url: 'https://github.com/devopsbyraham/jenkins-java-project.git'
+                git 'https://github.com/jabinmohammad/jenkins-java-project.git'
             }
         }
-        stage('build') {
+        stage('Build') {
             steps {
                 sh 'mvn compile'
             }
         }
-        stage('test') {
+        stage('Test') {
             steps {
                 sh 'mvn test'
             }
@@ -24,7 +24,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                ansiblePlaybook credentialsId: 'f105faae-40d8-4d7d-a160-3ed45305573a', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: '/etc/ansible/playbook.yml', vaultTmpPath: ''
+                ansiblePlaybook
             }
         }
     }
