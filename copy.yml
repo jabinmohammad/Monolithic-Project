@@ -1,0 +1,6 @@
+- hosts: all
+  tasks:
+    - name: copying war file
+      copy:
+        src: /var/lib/jenkins/workspace/Mono-pipeline/target/JABIN-2.2.2.war
+        dest: /root/tomcat/webapps
