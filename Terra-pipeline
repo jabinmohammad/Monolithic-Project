@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                https://github.com/jabinmohammad/Monolithic-Project.git
+                git 'https://github.com/jabinmohammad/Monolithic-Project.git'
             }
         }
         stage('init') {
