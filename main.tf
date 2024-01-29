@@ -1,29 +1,25 @@
 provider "aws" {
-region = "us-east-1"
+region = "eu-north-1"
 }
 
-resource "aws_instance" "server" {
-  ami           = var.ami
-  instance_type = var.instance_type
-
-  dynamic "tag" {
-    for_each = var.server_names
-    content {
-      key   = each.key
-      value = each.value
-    }
-  }
+resource "aws_instance" "servers" {
+  for_each = toset(["Master", "worker-1", "worker-2", "worker-3", "worker-4", "Monitor", "Sonarube"])
+  ami           = "ami-0331ac5c6d19b3f74"
+  instance_type = "t3.micro"
 
   tags = {
-    Name = dynamic.tag.0.content.value
+    Name = "${each.key}"
   }
 }
-resource "aws_s3_bucket" "my_bucket"{
-  bucket = "goodatlucks"
-  region = "eu-north-1"
-  #key    = "terraform.tfstate"
-  versioning {
-    enabled = true
+
+resource "aws_s3_bucket" "my_bucket" {
+  bucket = "nuvunene1.k8s.local"
+}
+
+resource "aws_s3_bucket_versioning" "my_bucket" {
+  bucket = "nuvunene1.k8s.local"
+  versioning_configuration {
+    status = "Enabled"
   }
 }
 /*
