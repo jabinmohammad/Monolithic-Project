@@ -7,9 +7,9 @@ pipeline {
     }
     
     stages {
-        stage('checkout') {
+        stage('Checkout') {
             steps {
-                git 'https://github.com/devopsbyraham/terraform-project.git'
+                https://github.com/jabinmohammad/Monolithic-Project.git
             }
         }
         stage('init') {
