@@ -18,7 +18,7 @@ resource "aws_instance" "server" {
     Name = dynamic.tag.0.content.value
   }
 }
-resource "aws_s3_bucket" {
+resource "aws_s3_bucket" "my_bucket"{
   bucket = "goodatlucks"
   region = "eu-north-1"
   #key    = "terraform.tfstate"
