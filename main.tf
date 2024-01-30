@@ -22,15 +22,3 @@ resource "aws_s3_bucket_versioning" "my_bucket" {
     status = "Enabled"
   }
 }
-/*
-terraform {
-  backend "s3" {
-    bucket = "swiggyterraformbucket001"
-    key    = "terraform.tfstate"
-    region = "us-east-1"
-    versioning {
-    enabled = true
-  }
-  }
-}
-*/
