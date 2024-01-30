@@ -22,9 +22,19 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
-        stage('Deploy') {
+        stage('Deploy1') {
             steps {
-                ansiblePlaybook
+                ansiblePlaybook credentialsId: '19d834f9-d0d5-4155-86c0-962e50ffef33', disableHostKeyChecking: true, installation: 'Ansible', inventory: '/etc/ansible/hosts', playbook: '/etc/ansible/tomcat.yml', vaultTmpPath: ''
+            }
+        }
+        stage('deploy2') {
+            steps {
+                ansiblePlaybook credentialsId: '19d834f9-d0d5-4155-86c0-962e50ffef33', disableHostKeyChecking: true, installation: 'Ansible', inventory: '/etc/ansible/hosts', playbook: '/etc/ansible/copy.yml', vaultTmpPath: ''
+            }
+        }
+        stage('deploy3') {
+            steps {
+                ansiblePlaybook credentialsId: '19d834f9-d0d5-4155-86c0-962e50ffef33', disableHostKeyChecking: true, installation: 'Ansible', inventory: '/etc/ansible/hosts', playbook: '/etc/ansible/nodeex.yml', vaultTmpPath: ''
             }
         }
     }
