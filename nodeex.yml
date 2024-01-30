@@ -1,0 +1,12 @@
+- hosts: all
+
+
+  tasks:
+
+    - name: copy the sh file
+      template:
+        src: nodeex.sh
+        dest: /root/nodeex.sh
+
+    - name: run the sh
+      shell: sh nodeex.sh
